@@ -1,0 +1,117 @@
+volumes:
+  database-data:
+
+services:
+  db:
+    image: postgres:17.6-alpine
+    restart: always
+    networks:
+      - db
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: axo-clash-api
+    volumes:
+      - database-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 3s
+      timeout: 2s
+      retries: 15
+
+  api:
+    image: ghcr.io/axo-clash/application/backend:latest
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - 8080:8080
+    networks:
+      - db
+      - bots
+    environment:
+      - DATABASE_NAME=axo-clash-api
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_HOST=db
+  
+  front:
+    image: ghcr.io/axo-clash/application/frontend:1.0.0
+    ports:
+      - 3000:3000
+    healthcheck:
+      test: ["CMD", "curl","-f","http://localhost"]
+      interval: 3s
+      timeout: 2s
+      retries: 15
+
+  claude:
+    image: ghcr.io/axo-clash/bots/claude:v1.0.0
+    restart: always
+    networks:
+      - bots
+    environment:
+      - PORT=9000
+    healthcheck:
+      test: ["CMD", "curl","-f","http://localhost:9000/api/v1/bots/info"]
+      interval: 3s
+      timeout: 2s
+      retries: 15
+
+  chatgpt:
+    image: ghcr.io/axo-clash/bots/chatgpt:v1.0.0
+    restart: always
+    networks:
+      - bots
+    environment:
+      - PORT=9001
+    healthcheck:
+      test: ["CMD", "curl","-f","http://localhost:9001/api/v1/bots/info"]
+      interval: 3s
+      timeout: 2s
+      retries: 15
+  
+  gemini:
+    image: ghcr.io/axo-clash/bots/gemini:v1.0.0
+    restart: always
+    networks:
+      - bots
+    environment:
+      - PORT=9002
+    healthcheck:
+      test: ["CMD", "curl","-f","http://localhost:9002/api/v1/bots/info"]
+      interval: 3s
+      timeout: 2s
+      retries: 15
+
+  mistral:
+    image: ghcr.io/axo-clash/bots/mistral:v1.0.0
+    restart: always
+    networks:
+      - bots
+    environment:
+      - PORT=9003
+    healthcheck:
+      test: ["CMD", "curl","-f","http://localhost:9003/api/v1/bots/info"]
+      interval: 3s
+      timeout: 2s
+      retries: 15
+
+  deepseek:
+    image: ghcr.io/axo-clash/bots/deepseek:v1.0.0
+    restart: always
+    networks:
+      - bots
+    environment:
+      - PORT=9004
+    healthcheck:
+      test: ["CMD", "curl","-f","http://localhost:9004/api/v1/bots/info"]
+      interval: 3s
+      timeout: 2s
+      retries: 15
+
+networks:
+  db:
+    driver: bridge
+  bots:
+    driver: bridge
