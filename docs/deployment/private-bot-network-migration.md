@@ -2,9 +2,9 @@
 
 ## Topologie
 
-OpenTofu sélectionne le VPC existant (`bot_vpc_id = null` utilise le VPC par défaut
- du projet), crée le réseau de l'API et initialise les ACL IPv4/IPv6. Le routage du
-VPC doit être activé. Le premier /24 du /16 `bot_network_ipv4_cidr` est réservé à
+OpenTofu crée un VPC dédié avec routage activé lorsque `bot_vpc_id = null`,
+puis le réseau de l'API et les ACL IPv4/IPv6. Un ID explicite réutilise un VPC
+existant dont le routage doit être activé. Le premier /24 du /16 `bot_network_ipv4_cidr` est réservé à
 l'API : choisir une plage libre. Aucun Public Gateway n'est créé et la propagation
 des routes par défaut est désactivée.
 
