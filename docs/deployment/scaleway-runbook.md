@@ -282,3 +282,14 @@ session has not expired, and stops refreshing when hidden or when leaving it.
 
 References: [container autoscaling](https://www.scaleway.com/en/docs/serverless-containers/reference-content/containers-autoscaling/),
 [SQL idle state](https://www.scaleway.com/en/docs/serverless-sql-databases/reference-content/serverless-sql-databases-overview/).
+
+## Bot INFO timeout
+
+Bot metadata requests to `/info` allow 30 seconds. `/play` retains the game action
+budget (2 seconds under standard rules). The engine, relay protocol, local CLI,
+connection checker and publication validator apply these separate budgets.
+New or updated managed bot containers are configured with a 30-second provider
+request limit. Existing bot containers keep their previous provider limit until
+their configuration is updated; deploying only the new API image does not change
+already-deployed bot containers. Republish the bot or set its request timeout to
+30 seconds before testing metadata calls longer than the previous provider limit.

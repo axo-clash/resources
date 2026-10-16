@@ -43,7 +43,7 @@ Pour les bots locaux, le CLI refuse deux déclarations actives de la même URL n
 
 Le temps autorisé d'une action est mesuré par le serveur et inclut le réseau. Le code actuel fixe les règles standard à 2 000 ms, 100 tours, 10 points de vie et 10 actions interdites (`GameRules.java`). Conserver ces règles. Les mesures du CLI sont uniquement diagnostiques.
 
-Le démarrage à froid d'un bot doit précéder le début du combat et être distingué du calcul d'une action. Le contrôle `/info` actuel est également limité à 2 secondes : ajouter une préparation explicite avant le lancement du moteur, sans augmenter silencieusement les règles du jeu. Le budget de préparation sera fixé après mesure.
+Le démarrage à froid d'un bot doit précéder le début du combat et être distingué du calcul d'une action. Le contrôle `/info` dispose de 30 secondes, indépendamment du budget de 2 secondes pour `/play`. Le relais, le test de connexion, le vérificateur CLI et le validateur de publication appliquent cette distinction. La préparation de publication conserve son budget global distinct.
 
 Un bot doit accepter les redémarrages et ne pas dépendre d'un état mémoire durable. Un bot local tourne sur le matériel de son auteur : le relais ne reproduit pas les limites cloud. La validation de publication dans le budget cloud reste nécessaire.
 
