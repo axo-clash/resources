@@ -132,11 +132,11 @@ APPLICATION_CLOUD_PRIVATE_ENDPOINT_CA_PEM
 APPLICATION_CLOUD_JOBS_ENABLED=true
 ```
 
-Bot requests send no Scaleway key. Private networking and its endpoint CA are
-required for publication. Bots use `privacy=public` with the private endpoint
-activated and the default public endpoint disabled. The manager authenticates
-control-plane operations only. The infrastructure apply removes and revokes the
-historical invoker identity/key. See [the migration guide](private-bot-network-migration.md).
+Bot invocation sends no Scaleway key. Private networking is required for publication.
+The IAM privacy policy is `public`, the private endpoint is enabled, and the default
+public endpoint is disabled. The manager key authenticates control-plane requests
+only; the historical invoker identity is removed and revoked by the infrastructure apply.
+See the workspace private-network migration guide for the rollout and witness checks.
 
 ## API, database and frontend
 
@@ -176,22 +176,22 @@ global concurrency field in the pinned provider schema, so the backend's
 database claim/lease is the authoritative global-one guard and every retry
 must use that atomic claim.
 
-The publication definition also has a UTC `*/5 * * * *` trigger (configurable
+The publication definition also has a UTC `0 * * * *` trigger (configurable
 as `publication_reconcile_cron`). It wakes a generic import worker with no
 submission ID so a lost post-commit event or a scale-to-zero API cannot strand
-the queue. The trigger's extra latency is up to five minutes; the database
+the queue. The trigger's extra latency is up to one hour; the database
 claim remains the global concurrency-one guard. A worker that receives an
 empty `204` claim response exits successfully, while a claimed submission
 continues through the same lease and digest checks.
 
 The backend then uses the manager identity to create or update one private bot
 container. Every bot container must be read back from Scaleway with exactly
-`memory_limit_bytes=536870912`, `mvcpu_limit=500`, `sandbox=v2`,
-`privacy=public`, public endpoint disabled, private endpoint enabled, `min_scale=0`, and `max_scale=1`.
+`memory_limit_bytes=512000000`, `mvcpu_limit=500`, `sandbox=v2`,
+`privacy=public`, default public endpoint disabled, private endpoint enabled, `min_scale=0`, and `max_scale=1`.
 
-Before `READY`, the backend reserves the bot, provisions/reuses its private
-network and ACLs, validates `/info` and `/play` without credentials, and records
-the private endpoint and observed limits. A failed witness leaves
+Before `READY`, the backend reserves the bot, provisions/reuses its dedicated
+network and ACLs, makes credential-free `/info` and `/play` calls over private TLS,
+and records the private endpoint and observed limits. A failed witness leaves
 the revision rejected or unavailable and releases the reservation. Bot
 outbound Internet remains possible in this provider mode; do not document it
 as blocked.
@@ -257,3 +257,28 @@ deep-link loading, and a real long-running cloud/cloud game. Local OpenTofu
 validation and unit tests prove configuration and code paths only; they do not
 prove quotas, billing, cold starts, provider IAM behavior or production
 liveness.
+
+## Idle resource costs
+
+The API scales to zero after 15 minutes without requests. A recovery Job every
+five minutes prevents this; use `publication_reconcile_cron = "0 * * * *"` for
+hourly fallback recovery. Publication submission still dispatches immediately;
+only lost dispatch recovery may wait up to one hour. Existing protected tfvars
+must be updated and applied explicitly: changing the variable default alone does
+not replace a configured schedule.
+
+Production Hikari keeps zero minimum idle connections, releases idle connections
+after 30 seconds, disables keepalive probes and retires connections after four
+minutes. The relay expiry scheduler checks memory before opening a transaction;
+it only queries SQL while a relay socket is connected. Expired inactive sessions
+are cleaned when a session is created or the API restarts. An open relay keeps
+an API invocation active until disconnect or expiry (30 minutes by default).
+
+The Serverless SQL database idles after five minutes without queries, even when
+clients are connected. Avoid external polling of the aggregate `/actuator/health`
+endpoint, which includes a database check; use `/actuator/health/liveness` for a
+process-only probe. The lab refreshes pairing while its page is visible and a
+session has not expired, and stops refreshing when hidden or when leaving it.
+
+References: [container autoscaling](https://www.scaleway.com/en/docs/serverless-containers/reference-content/containers-autoscaling/),
+[SQL idle state](https://www.scaleway.com/en/docs/serverless-sql-databases/reference-content/serverless-sql-databases-overview/).
