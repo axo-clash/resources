@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>AXO-CLASH — Combat en direct</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&amp;family=Barlow:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0A0C11}
+a{color:#C8F031;text-decoration:none}a:hover{color:#E4FF8A}
+.ax{font-family:'Barlow',system-ui,sans-serif;color:#E6EAF2;background-color:#0A0C11;background-image:linear-gradient(rgba(130,150,190,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(130,150,190,.05) 1px,transparent 1px);background-size:48px 48px}
+.d{font-family:'Chakra Petch',system-ui,sans-serif}
+.m{font-family:'JetBrains Mono',ui-monospace,monospace}
+.cut{clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px)}
+.cut-s{clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:44px;padding:0 22px;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:14px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border:0}
+.btn-p{background:#C8F031;color:#0A0C11}.btn-p:hover{background:#DDFF5C;color:#0A0C11}
+.btn-g{background:#161B26;color:#E6EAF2;box-shadow:inset 0 0 0 1px #343C50}.btn-g:hover{background:#202736;color:#fff}
+.nl{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#9AA3B5}
+.nl:hover{color:#E6EAF2}.nl.on{color:#E6EAF2;box-shadow:inset 0 -2px 0 #C8F031}
+.live{animation:blink 1.2s steps(2) infinite}@keyframes blink{50%{opacity:.2}}
+.stripes{background:repeating-linear-gradient(-45deg,#C8F031 0 6px,transparent 6px 14px)}
+.glow-a{box-shadow:0 0 18px rgba(46,139,255,.75)}.glow-b{box-shadow:0 0 18px rgba(255,161,51,.75)}
+.shot{box-shadow:0 0 10px #FF4D5E}
+.log{scrollbar-width:thin;scrollbar-color:#343C50 transparent}
+</style>
+</helmet>
+<div class="ax" style="width: 100%">
+
+<header style="border-bottom: 1px solid #1E2431; background: rgba(10,12,17,.92)">
+<nav aria-label="Navigation principale" style="max-width: 1280px; margin: 0 auto; padding: 12px 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; color: #E6EAF2">
+<span class="cut-s d" style="width: 36px; height: 36px; background: #C8F031; color: #0A0C11; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px">AX</span>
+<span class="d" style="font-weight: 700; font-size: 20px; letter-spacing: .12em">AXO<span style="color: #C8F031">/</span>CLASH</span>
+</a>
+<div style="display: flex; flex-wrap: wrap; gap: 2px; flex: 1 1 auto">
+<a class="nl" href="Main.dc.html">Arène</a>
+<a class="nl on" href="Combat.dc.html" aria-current="page">Combats</a>
+<a class="nl" href="Tournoi.dc.html">Tournois</a>
+<a class="nl" href="Classement.dc.html">Classement</a>
+<a class="nl" href="Bot.dc.html">Bots</a>
+<a class="nl" href="Docs.dc.html">Docs</a>
+</div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
+<a class="btn btn-g cut-s" href="Login.dc.html">Se connecter</a>
+<a class="btn btn-p cut-s" href="Combat.dc.html">Lancer un combat</a>
+</div>
+</nav>
+</header>
+
+<main style="max-width: 1280px; margin: 0 auto; padding: 32px 32px 72px; display: flex; flex-direction: column; gap: 24px">
+
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px">
+<a href="Main.dc.html" class="m" style="font-size: 13px; letter-spacing: .12em; color: #8A93A6; min-height: 44px; display: inline-flex; align-items: center">← COMBATS</a>
+<h1 class="d" style="margin: 0; font-size: 28px; font-weight: 700; letter-spacing: .06em">COMBAT #1287</h1>
+<span class="m cut-s" style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; font-size: 12px; letter-spacing: .14em; background: {{statusBg}}; color: {{statusFg}}"><span class="live" style="width: 8px; height: 8px; border-radius: 50%; background: {{statusFg}}"></span>{{statusLabel}}</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<button type="button" class="btn btn-g cut-s" onClick="{{togglePause}}">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M8 5v14M16 5v14"></path></svg>{{pauseLabel}}</button>
+<button type="button" class="btn btn-g cut-s">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M12 3v13M7 8l5-5 5 5"></path></svg>Partager</button>
+</div>
+</div>
+
+<section aria-label="Affrontement" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr)); gap: 16px; align-items: stretch">
+<div class="cut" style="background: #2E8BFF; padding: 1px">
+<div class="cut" style="background: #0F1726; padding: 24px; display: flex; flex-direction: column; gap: 18px; height: 100%; box-sizing: border-box">
+<div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span class="m" style="font-size: 12px; letter-spacing: .16em; color: #5EA8FF">JOUEUR A</span>
+<span class="d" style="font-size: 40px; font-weight: 700; line-height: 1">FERRAILLE</span>
+<span style="font-size: 14px; color: #A9B1C2">v1.4.2 · @nathan · Java</span>
+</div>
+<span class="d" style="width: 48px; height: 48px; flex: none; background: #2E8BFF; color: #06101F; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 22px; transform: rotate(45deg); border-radius: 3px"><span style="transform: rotate(-45deg)">A</span></span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div class="m" style="display: flex; justify-content: space-between; font-size: 12px; letter-spacing: .12em; color: #8A93A6"><span>POINTS DE VIE</span><span style="color: #E6EAF2; font-weight: 700">7 / 10</span></div>
+<div style="display: flex; gap: 4px"><sc-for list="{{hpA}}" as="s" hint-placeholder-count="10"><div class="cut-s" style="flex: 1; height: 18px; background: {{s.bg}}"></div></sc-for></div>
+</div>
+<dl class="m" style="margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; font-size: 12px; letter-spacing: .1em">
+<div style="display: flex; flex-direction: column-reverse; gap: 6px"><dt style="color: #8A93A6">ACTIONS INTERDITES</dt><dd style="margin: 0; display: flex; gap: 3px"><span style="width: 10px; height: 10px; background: #FF4D5E"></span><span style="width: 10px; height: 10px; background: #FF4D5E"></span><span style="width: 10px; height: 10px; background: #252C3B"></span><span style="width: 10px; height: 10px; background: #252C3B"></span><span style="width: 10px; height: 10px; background: #252C3B"></span><span style="width: 10px; height: 10px; background: #252C3B"></span><span style="width: 10px; height: 10px; background: #252C3B"></span><span style="width: 10px; height: 10px; background: #252C3B"></span><span style="width: 10px; height: 10px; background: #252C3B"></span><span style="width: 10px; height: 10px; background: #252C3B"></span></dd></div>
+<div style="display: flex; flex-direction: column-reverse; gap: 6px"><dt style="color: #8A93A6">TEMPS MOYEN</dt><dd style="margin: 0; color: #E6EAF2; font-size: 16px; font-weight: 700">14 ms</dd></div>
+</dl>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 16px">
+<span class="d" style="font-size: 88px; font-weight: 700; line-height: .85; letter-spacing: -.02em; color: transparent; -webkit-text-stroke: 2px #C8F031">VS</span>
+<span class="m" style="font-size: 13px; letter-spacing: .16em; color: #8A93A6">TOUR</span>
+<span class="d" style="font-size: 48px; font-weight: 700; line-height: 1">{{turn}}<span style="font-size: 20px; color: #6B7488">/100</span></span>
+<div style="width: 100%; max-width: 240px; height: 6px; background: #1E2431" role="progressbar" aria-label="Progression du combat" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{turn}}"><div style="height: 100%; width: {{pct}}; background: #C8F031"></div></div>
+</div>
+
+<div class="cut" style="background: #FFA133; padding: 1px">
+<div class="cut" style="background: #1F160C; padding: 24px; display: flex; flex-direction: column; gap: 18px; height: 100%; box-sizing: border-box">
+<div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px">
+<span class="d" style="width: 48px; height: 48px; flex: none; background: #FFA133; color: #1E1200; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 22px; transform: rotate(45deg); border-radius: 3px"><span style="transform: rotate(-45deg)">B</span></span>
+<div style="display: flex; flex-direction: column; gap: 4px; text-align: right">
+<span class="m" style="font-size: 12px; letter-spacing: .16em; color: #FFA133">JOUEUR B</span>
+<span class="d" style="font-size: 40px; font-weight: 700; line-height: 1">NYX-7</span>
+<span style="font-size: 14px; color: #B9AE9F">v2.3.0 · @lea.m · Rust</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div class="m" style="display: flex; justify-content: space-between; font-size: 12px; letter-spacing: .12em; color: #8A93A6"><span style="color: #E6EAF2; font-weight: 700">4 / 10</span><span>POINTS DE VIE</span></div>
+<div style="display: flex; gap: 4px"><sc-for list="{{hpB}}" as="s" hint-placeholder-count="10"><div class="cut-s" style="flex: 1; height: 18px; background: {{s.bg}}"></div></sc-for></div>
+</div>
+<dl class="m" style="margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; font-size: 12px; letter-spacing: .1em; text-align: right">
+<div style="display: flex; flex-direction: column-reverse; gap: 6px"><dt style="color: #8A93A6">TEMPS MOYEN</dt><dd style="margin: 0; color: #E6EAF2; font-size: 16px; font-weight: 700">3 ms</dd></div>
+<div style="display: flex; flex-direction: column-reverse; gap: 6px"><dt style="color: #8A93A6">ACTIONS INTERDITES</dt><dd style="margin: 0; display: flex; justify-content: flex-end; gap: 3px"><span style="width: 10px; height: 10px; background: #FF4D5E"></span><span style="width: 10px; height: 10px; background: #FF4D5E"></span><span style="width: 10px; height: 10px; background: #FF4D5E"></span><span style="width: 10px; height: 10px; background: #FF4D5E"></span><span style="width: 10px; height: 10px; background: #FF4D5E"></span><span style="width: 10px; height: 10px; background: #252C3B"></span><span style="width: 10px; height: 10px; background: #252C3B"></span><span style="width: 10px; height: 10px; background: #252C3B"></span><span style="width: 10px; height: 10px; background: #252C3B"></span><span style="width: 10px; height: 10px; background: #252C3B"></span></dd></div>
+</dl>
+</div>
+</div>
+</section>
+
+<section aria-label="Plateau et journal" style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start">
+<div style="flex: 1 1 260px; min-width: 0; background: #10131B; border: 1px solid #232A38; display: flex; flex-direction: column">
+<h2 class="d" style="margin: 0; padding: 14px 16px; font-size: 14px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; border-bottom: 1px solid #232A38; display: flex; justify-content: space-between"><span style="color: #5EA8FF">Journal · A</span><span class="m" style="font-weight: 400; color: #8A93A6">23 actions</span></h2>
+<ol class="log" style="margin: 0; padding: 6px; list-style: none; display: flex; flex-direction: column; gap: 2px; max-height: 560px; overflow-y: auto">
+<sc-for list="{{logA}}" as="l" hint-placeholder-count="12">
+<li class="m" style="display: grid; grid-template-columns: 40px 18px minmax(0,1fr) auto; align-items: center; gap: 8px; padding: 8px 10px; font-size: 13px; background: {{l.bg}}">
+<span style="color: #6B7488">#{{l.n}}</span>
+<span style="color: {{l.ic}}; font-weight: 700">{{l.arrow}}</span>
+<span style="color: {{l.fg}}; display: flex; gap: 8px; align-items: center; min-width: 0">{{l.act}}<sc-if value="{{l.bad}}" hint-placeholder-val="{{false}}"><span style="font-size: 10px; letter-spacing: .1em; padding: 2px 5px; background: #FF4D5E; color: #1A0005; font-weight: 700">INTERDIT</span></sc-if></span>
+<span style="color: #8A93A6; font-size: 12px">{{l.ms}}ms</span>
+</li>
+</sc-for>
+</ol>
+</div>
+
+<div style="flex: 2 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 12px; align-items: center">
+<div style="width: 100%; max-width: 640px; background: #0E1118; border: 1px solid #232A38; padding: 14px; box-sizing: border-box; position: relative">
+<div class="m" style="display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); padding: 0 2px 6px; font-size: 11px; color: #4E5668; text-align: center"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span></div>
+<div role="img" aria-label="Plateau de jeu 8 par 8 : FERRAILLE en bleu, NYX-7 en orange, projectiles en rouge" style="display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 3px; padding: 3px; background: #1B2130">
+<sc-for list="{{cells}}" as="c" hint-placeholder-count="64">
+<div style="aspect-ratio: 1; background: {{c.bg}}; display: flex; align-items: center; justify-content: center">
+<sc-if value="{{c.a}}" hint-placeholder-val="{{false}}"><div class="d glow-a" style="width: 62%; height: 62%; background: #2E8BFF; color: #06101F; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; transform: rotate(45deg); border-radius: 3px"><span style="transform: rotate(-45deg)">A</span></div></sc-if>
+<sc-if value="{{c.b}}" hint-placeholder-val="{{false}}"><div class="d glow-b" style="width: 62%; height: 62%; background: #FFA133; color: #1E1200; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; transform: rotate(45deg); border-radius: 3px"><span style="transform: rotate(-45deg)">B</span></div></sc-if>
+<sc-if value="{{c.h}}" hint-placeholder-val="{{false}}"><div class="shot" style="width: 72%; height: 5px; background: #FF4D5E; border-radius: 3px"></div></sc-if>
+<sc-if value="{{c.v}}" hint-placeholder-val="{{false}}"><div class="shot" style="width: 5px; height: 72%; background: #FF4D5E; border-radius: 3px"></div></sc-if>
+</div>
+</sc-for>
+</div>
+</div>
+<div class="m" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; font-size: 12px; letter-spacing: .1em; color: #8A93A6">
+<span style="display: flex; align-items: center; gap: 8px"><span style="width: 10px; height: 10px; background: #2E8BFF; transform: rotate(45deg)"></span>FERRAILLE</span>
+<span style="display: flex; align-items: center; gap: 8px"><span style="width: 10px; height: 10px; background: #FFA133; transform: rotate(45deg)"></span>NYX-7</span>
+<span style="display: flex; align-items: center; gap: 8px"><span style="width: 14px; height: 4px; background: #FF4D5E"></span>PROJECTILE</span>
+<span style="display: flex; align-items: center; gap: 8px">{{bullets}} EN VOL</span>
+</div>
+</div>
+
+<div style="flex: 1 1 260px; min-width: 0; background: #10131B; border: 1px solid #232A38; display: flex; flex-direction: column">
+<h2 class="d" style="margin: 0; padding: 14px 16px; font-size: 14px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; border-bottom: 1px solid #232A38; display: flex; justify-content: space-between"><span style="color: #FFA133">Journal · B</span><span class="m" style="font-weight: 400; color: #8A93A6">23 actions</span></h2>
+<ol class="log" style="margin: 0; padding: 6px; list-style: none; display: flex; flex-direction: column; gap: 2px; max-height: 560px; overflow-y: auto">
+<sc-for list="{{logB}}" as="l" hint-placeholder-count="12">
+<li class="m" style="display: grid; grid-template-columns: 40px 18px minmax(0,1fr) auto; align-items: center; gap: 8px; padding: 8px 10px; font-size: 13px; background: {{l.bg}}">
+<span style="color: #6B7488">#{{l.n}}</span>
+<span style="color: {{l.ic}}; font-weight: 700">{{l.arrow}}</span>
+<span style="color: {{l.fg}}; display: flex; gap: 8px; align-items: center; min-width: 0">{{l.act}}<sc-if value="{{l.bad}}" hint-placeholder-val="{{false}}"><span style="font-size: 10px; letter-spacing: .1em; padding: 2px 5px; background: #FF4D5E; color: #1A0005; font-weight: 700">INTERDIT</span></sc-if></span>
+<span style="color: #8A93A6; font-size: 12px">{{l.ms}}ms</span>
+</li>
+</sc-for>
+</ol>
+</div>
+</section>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"speed":{"editor":"range","default":650,"min":200,"max":1500,"step":50,"unit":"ms"},"$preview":{"width":1440,"height":1320}}'>
+class Component extends DCLogic {
+  state = { f: 0, paused: false };
+  frames() {
+    return [
+      { a: [1, 2], b: [6, 5], s: [] },
+      { a: [1, 3], b: [6, 4], s: [] },
+      { a: [1, 4], b: [6, 4], s: [[2, 4, 'h']] },
+      { a: [1, 4], b: [6, 3], s: [[3, 4, 'h']] },
+      { a: [1, 4], b: [6, 3], s: [[4, 4, 'h'], [5, 3, 'h']] },
+      { a: [1, 5], b: [6, 3], s: [[5, 4, 'h'], [4, 3, 'h']] },
+      { a: [1, 5], b: [5, 3], s: [[6, 4, 'h'], [3, 3, 'h']] },
+      { a: [2, 5], b: [5, 3], s: [[7, 4, 'h'], [2, 3, 'h']] },
+      { a: [2, 5], b: [5, 4], s: [[1, 3, 'h'], [5, 5, 'v']] },
+      { a: [2, 6], b: [5, 4], s: [[0, 3, 'h'], [5, 6, 'v']] },
+      { a: [2, 6], b: [4, 4], s: [[5, 7, 'v']] },
+      { a: [1, 6], b: [4, 3], s: [] }
+    ];
+  }
+  componentDidMount() { this.tick(); }
+  componentWillUnmount() { clearTimeout(this.t); }
+  tick() {
+    this.t = setTimeout(() => {
+      if (!this.state.paused) this.setState({ f: (this.state.f + 1) % 12 });
+      this.tick();
+    }, this.props.speed || 650);
+  }
+  segs(n, on, rev) {
+    var out = [];
+    for (var i = 0; i < 10; i++) {
+      var filled = rev ? i >= 10 - n : i < n;
+      out.push({ bg: filled ? on : '#1E2431' });
+    }
+    return out;
+  }
+  log(rows, color) {
+    var arrows = { UP: '↑', DOWN: '↓', LEFT: '←', RIGHT: '→' };
+    return rows.map(function (r) {
+      var dir = r[1].split('_')[1];
+      var shoot = r[1].indexOf('SHOOT') === 0;
+      return {
+        n: r[0], act: r[1], ms: r[2], bad: !!r[3],
+        arrow: arrows[dir],
+        ic: r[3] ? '#FF6B78' : (shoot ? '#FF6B78' : color),
+        fg: r[3] ? '#FF8A95' : '#E6EAF2',
+        bg: r[3] ? 'rgba(255,77,94,.12)' : 'transparent'
+      };
+    });
+  }
+  renderVals() {
+    var fr = this.frames()[this.state.f % 12];
+    var cells = [];
+    for (var y = 0; y < 8; y++) {
+      for (var x = 0; x < 8; x++) {
+        var h = false, v = false;
+        for (var i = 0; i < fr.s.length; i++) {
+          var s = fr.s[i];
+          if (s[0] === x && s[1] === y) { if (s[2] === 'h') h = true; else v = true; }
+        }
+        cells.push({ bg: (x + y) % 2 ? '#121620' : '#161B27', a: fr.a[0] === x && fr.a[1] === y, b: fr.b[0] === x && fr.b[1] === y, h: h, v: v });
+      }
+    }
+    var turn = 47 + this.state.f;
+    var paused = this.state.paused;
+    return {
+      cells: cells,
+      turn: turn,
+      pct: turn + '%',
+      bullets: fr.s.length,
+      hpA: this.segs(7, '#2E8BFF', false),
+      hpB: this.segs(4, '#FFA133', true),
+      statusLabel: paused ? 'EN PAUSE' : 'EN DIRECT',
+      statusBg: paused ? '#2A2410' : '#2A1016',
+      statusFg: paused ? '#F5C542' : '#FF6B78',
+      pauseLabel: paused ? 'Reprendre' : 'Pause',
+      togglePause: () => this.setState({ paused: !this.state.paused }),
+      logA: this.log([[46, 'SHOOT_RIGHT', 11], [45, 'MOVE_DOWN', 14], [44, 'MOVE_DOWN', 12], [43, 'SHOOT_RIGHT', 16], [42, 'MOVE_LEFT', 13, 1], [41, 'MOVE_UP', 15], [40, 'SHOOT_DOWN', 12], [39, 'MOVE_RIGHT', 14], [38, 'MOVE_RIGHT', 11], [37, 'SHOOT_RIGHT', 17], [36, 'MOVE_LEFT', 12, 1], [35, 'MOVE_DOWN', 13]], '#5EA8FF'),
+      logB: this.log([[46, 'MOVE_UP', 3], [45, 'SHOOT_LEFT', 2], [44, 'MOVE_UP', 4, 1], [43, 'MOVE_LEFT', 3], [42, 'SHOOT_DOWN', 3], [41, 'MOVE_DOWN', 2], [40, 'MOVE_DOWN', 3, 1], [39, 'SHOOT_LEFT', 4], [38, 'MOVE_UP', 3], [37, 'SHOOT_LEFT', 2, 1], [36, 'MOVE_RIGHT', 3], [35, 'SHOOT_UP', 3]], '#FFA133')
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>AXO-CLASH — Créer un tournoi</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&amp;family=Barlow:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0A0C11}
+a{color:#C8F031;text-decoration:none}a:hover{color:#E4FF8A}
+.ax{font-family:'Barlow',system-ui,sans-serif;color:#E6EAF2;background-color:#0A0C11;background-image:linear-gradient(rgba(130,150,190,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(130,150,190,.05) 1px,transparent 1px);background-size:48px 48px}
+.d{font-family:'Chakra Petch',system-ui,sans-serif}
+.m{font-family:'JetBrains Mono',ui-monospace,monospace}
+.cut{clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px)}
+.cut-s{clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:44px;padding:0 22px;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:14px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border:0}
+.btn-p{background:#C8F031;color:#0A0C11}.btn-p:hover{background:#DDFF5C;color:#0A0C11}
+.btn-g{background:#161B26;color:#E6EAF2;box-shadow:inset 0 0 0 1px #343C50}.btn-g:hover{background:#202736;color:#fff}
+.nl{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#9AA3B5}
+.nl:hover{color:#E6EAF2}.nl.on{color:#E6EAF2;box-shadow:inset 0 -2px 0 #C8F031}
+.stripes{background:repeating-linear-gradient(-45deg,#C8F031 0 6px,transparent 6px 14px)}
+.fld{min-height:46px;width:100%;box-sizing:border-box;padding:0 14px;background:#0A0C11;border:1px solid #2A3142;color:#E6EAF2;font:inherit;font-size:15px}
+.fld:focus{outline:2px solid #C8F031;outline-offset:-1px}
+.lbl{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;color:#A9B1C2;text-transform:uppercase}
+.mod{transition:background .15s}
+</style>
+</helmet>
+<div class="ax" style="width: 100%">
+
+<header style="border-bottom: 1px solid #1E2431; background: rgba(10,12,17,.92)">
+<nav aria-label="Navigation principale" style="max-width: 1280px; margin: 0 auto; padding: 12px 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; color: #E6EAF2">
+<span class="cut-s d" style="width: 36px; height: 36px; background: #C8F031; color: #0A0C11; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px">AX</span>
+<span class="d" style="font-weight: 700; font-size: 20px; letter-spacing: .12em">AXO<span style="color: #C8F031">/</span>CLASH</span>
+</a>
+<div style="display: flex; flex-wrap: wrap; gap: 2px; flex: 1 1 auto">
+<a class="nl" href="Main.dc.html">Arène</a>
+<a class="nl" href="Combat.dc.html">Combats</a>
+<a class="nl on" href="Tournoi.dc.html" aria-current="page">Tournois</a>
+<a class="nl" href="Classement.dc.html">Classement</a>
+<a class="nl" href="Bot.dc.html">Bots</a>
+<a class="nl" href="Docs.dc.html">Docs</a>
+</div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
+<a class="btn btn-g cut-s" href="#">@nathan</a>
+<a class="btn btn-p cut-s" href="Combat.dc.html">Lancer un combat</a>
+</div>
+</nav>
+</header>
+
+<main style="max-width: 1280px; margin: 0 auto; padding: 48px 32px 88px; display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<a href="Tournoi.dc.html" class="m" style="font-size: 13px; letter-spacing: .12em; color: #8A93A6; min-height: 32px; display: inline-flex; align-items: center">← TOURNOIS</a>
+<h1 class="d" style="margin: 0; font-size: clamp(40px, 5vw, 64px); line-height: .95; font-weight: 700; text-transform: uppercase">Créer un tournoi</h1>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+<form style="flex: 2 1 600px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+
+<fieldset style="margin: 0; padding: 24px; border: 1px solid #232A38; background: #10131B; display: flex; flex-direction: column; gap: 18px">
+<legend class="d" style="padding: 0 8px; font-size: 16px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase">01 · Infos</legend>
+<label style="display: flex; flex-direction: column; gap: 8px"><span class="lbl">Nom du tournoi</span><input class="fld" type="text" placeholder="[Nom du tournoi]"></label>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 16px">
+<label style="display: flex; flex-direction: column; gap: 8px"><span class="lbl">Inscriptions jusqu'au</span><input class="fld m" type="datetime-local"></label>
+<label style="display: flex; flex-direction: column; gap: 8px"><span class="lbl">Début</span><input class="fld m" type="datetime-local"></label>
+<label style="display: flex; flex-direction: column; gap: 8px"><span class="lbl">Bots max</span><input class="fld m" type="number" value="16" min="4"></label>
+</div>
+</fieldset>
+
+<fieldset style="margin: 0; padding: 24px; border: 1px solid #232A38; background: #10131B; display: flex; flex-direction: column; gap: 18px">
+<legend class="d" style="padding: 0 8px; font-size: 16px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase">02 · Format</legend>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 16px; align-items: end">
+<label style="display: flex; flex-direction: column; gap: 8px"><span class="lbl">Nombre de rondes</span><input class="fld m" type="number" min="1" max="12" value="{{rounds}}" onChange="{{onRounds}}"></label>
+<div style="display: flex; flex-direction: column; gap: 8px"><span class="lbl">Phase finale</span><span class="m" style="min-height: 46px; display: flex; align-items: center; padding: 0 14px; background: #0A0C11; border: 1px dashed #2A3142; color: #A9B1C2">Top 4 · 1v4, 2v3, finale</span></div>
+</div>
+<p style="margin: 0; font-size: 14px; line-height: 1.55; color: #A9B1C2">À chaque ronde, les bots ayant le même nombre de victoires s'affrontent, départagés par l'ELO. Après la dernière ronde, les 4 premiers (victoires, puis rang moyen des adversaires) passent en phase finale. Une seule manche par rencontre.</p>
+</fieldset>
+
+<fieldset style="margin: 0; padding: 24px; border: 1px solid #232A38; background: #10131B; display: flex; flex-direction: column; gap: 18px">
+<legend class="d" style="padding: 0 8px; font-size: 16px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase">03 · Règles de combat</legend>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 12px">
+<button type="button" class="mod" aria-pressed="{{sd}}" onClick="{{toggleSd}}" style="text-align: left; cursor: pointer; border: 0; padding: 18px; display: flex; gap: 14px; align-items: flex-start; font: inherit; color: #E6EAF2; background: {{sdBg}}; box-shadow: inset 0 0 0 1px {{sdBd}}">
+<span style="flex: none; width: 40px; height: 22px; border-radius: 11px; background: {{sdTrack}}; display: flex; align-items: center; padding: 3px; box-sizing: border-box; justify-content: {{sdJustify}}"><span style="width: 16px; height: 16px; border-radius: 50%; background: #E6EAF2"></span></span>
+<span style="display: flex; flex-direction: column; gap: 4px"><span class="d" style="font-weight: 700; font-size: 17px; text-transform: uppercase; letter-spacing: .06em">Mort subite</span><span style="font-size: 14px; color: #A9B1C2; line-height: 1.45">1 PV par bot : le premier tir qui touche gagne le combat.</span></span>
+</button>
+<button type="button" class="mod" aria-pressed="{{bz}}" onClick="{{toggleBz}}" style="text-align: left; cursor: pointer; border: 0; padding: 18px; display: flex; gap: 14px; align-items: flex-start; font: inherit; color: #E6EAF2; background: {{bzBg}}; box-shadow: inset 0 0 0 1px {{bzBd}}">
+<span style="flex: none; width: 40px; height: 22px; border-radius: 11px; background: {{bzTrack}}; display: flex; align-items: center; padding: 3px; box-sizing: border-box; justify-content: {{bzJustify}}"><span style="width: 16px; height: 16px; border-radius: 50%; background: #E6EAF2"></span></span>
+<span style="display: flex; flex-direction: column; gap: 4px"><span class="d" style="font-weight: 700; font-size: 17px; text-transform: uppercase; letter-spacing: .06em">Blitz</span><span style="font-size: 14px; color: #A9B1C2; line-height: 1.45">Réponse en 500 ms max, au lieu de 2 s. Au-delà : action interdite.</span></span>
+</button>
+</div>
+<div class="lbl" style="margin-top: 6px">Réglages fins</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 16px">
+<label style="display: flex; flex-direction: column; gap: 8px"><span class="lbl">PV de départ</span><input class="fld m" type="number" min="1" value="{{pv}}" onChange="{{onPv}}"></label>
+<label style="display: flex; flex-direction: column; gap: 8px"><span class="lbl">Timeout (ms)</span><input class="fld m" type="number" min="100" step="100" value="{{to}}" onChange="{{onTo}}"></label>
+<label style="display: flex; flex-direction: column; gap: 8px"><span class="lbl">Tours max</span><input class="fld m" type="number" min="10" value="{{turns}}" onChange="{{onTurns}}"></label>
+<label style="display: flex; flex-direction: column; gap: 8px"><span class="lbl">Actions interdites max</span><input class="fld m" type="number" min="1" value="{{faults}}" onChange="{{onFaults}}"></label>
+</div>
+</fieldset>
+</form>
+
+<aside aria-labelledby="sum-title" style="flex: 1 1 340px; min-width: 0; background: #10131B; border: 1px solid #232A38; display: flex; flex-direction: column">
+<div class="stripes" style="height: 8px"></div>
+<div style="padding: 24px; display: flex; flex-direction: column; gap: 20px">
+<h2 id="sum-title" class="d" style="margin: 0; font-size: 20px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase">Récapitulatif</h2>
+<div class="m" style="display: flex; flex-wrap: wrap; gap: 8px; font-size: 11px; letter-spacing: .12em">
+<span class="cut-s" style="padding: 6px 10px; background: #161B26; color: #E6EAF2; box-shadow: inset 0 0 0 1px #2A3142">{{rounds}} RONDES + TOP 4</span>
+<sc-if value="{{sd}}" hint-placeholder-val="{{false}}"><span class="cut-s" style="padding: 6px 10px; background: #3A141A; color: #FF8A95">MORT SUBITE</span></sc-if>
+<sc-if value="{{bz}}" hint-placeholder-val="{{false}}"><span class="cut-s" style="padding: 6px 10px; background: #2A2410; color: #F5C542">BLITZ</span></sc-if>
+<sc-if value="{{custom}}" hint-placeholder-val="{{false}}"><span class="cut-s" style="padding: 6px 10px; background: #161B26; color: #5EA8FF; box-shadow: inset 0 0 0 1px #2E8BFF">RÈGLES PERSO</span></sc-if>
+</div>
+<dl class="m" style="margin: 0; display: flex; flex-direction: column; font-size: 14px">
+<div style="display: flex; justify-content: space-between; padding: 10px 0; border-top: 1px solid #1E2431"><dt style="color: #8A93A6">PV de départ</dt><dd style="margin: 0; font-weight: 700">{{pv}}</dd></div>
+<div style="display: flex; justify-content: space-between; padding: 10px 0; border-top: 1px solid #1E2431"><dt style="color: #8A93A6">Temps de réponse max</dt><dd style="margin: 0; font-weight: 700">{{to}} ms</dd></div>
+<div style="display: flex; justify-content: space-between; padding: 10px 0; border-top: 1px solid #1E2431"><dt style="color: #8A93A6">Tours max</dt><dd style="margin: 0; font-weight: 700">{{turns}}</dd></div>
+<div style="display: flex; justify-content: space-between; padding: 10px 0; border-top: 1px solid #1E2431"><dt style="color: #8A93A6">Actions interdites max</dt><dd style="margin: 0; font-weight: 700">{{faults}}</dd></div>
+<div style="display: flex; justify-content: space-between; padding: 10px 0; border-top: 1px solid #1E2431"><dt style="color: #8A93A6">Combats à jouer</dt><dd style="margin: 0; font-weight: 700">{{matches}}</dd></div>
+</dl>
+<p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A93A6">Les règles sont figées à l'ouverture des inscriptions et affichées sur la page du tournoi.</p>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<button type="button" class="btn btn-p cut-s">Ouvrir les inscriptions</button>
+<button type="button" class="btn btn-g cut-s">Enregistrer le brouillon</button>
+</div>
+</div>
+</aside>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500}}'>
+class Component extends DCLogic {
+  state = { rounds: 5, pv: 10, to: 2000, turns: 100, faults: 10 };
+  num(e, fallback) { var v = parseInt(e.target.value, 10); return isNaN(v) ? fallback : v; }
+  renderVals() {
+    var s = this.state;
+    var sd = s.pv === 1, bz = s.to <= 500;
+    var custom = (s.pv !== 10 && s.pv !== 1) || (s.to !== 2000 && s.to !== 500) || s.turns !== 100 || s.faults !== 10;
+    function look(on) {
+      return { bg: on ? '#141A0A' : '#0A0C11', bd: on ? '#C8F031' : '#2A3142', track: on ? '#7C9A12' : '#343C50', justify: on ? 'flex-end' : 'flex-start' };
+    }
+    var a = look(sd), b = look(bz);
+    return {
+      rounds: s.rounds, pv: s.pv, to: s.to, turns: s.turns, faults: s.faults,
+      matches: s.rounds * 8 + 3,
+      sd: sd, bz: bz, custom: custom,
+      sdBg: a.bg, sdBd: a.bd, sdTrack: a.track, sdJustify: a.justify,
+      bzBg: b.bg, bzBd: b.bd, bzTrack: b.track, bzJustify: b.justify,
+      toggleSd: () => this.setState({ pv: sd ? 10 : 1 }),
+      toggleBz: () => this.setState({ to: bz ? 2000 : 500 }),
+      onRounds: (e) => this.setState({ rounds: this.num(e, 5) }),
+      onPv: (e) => this.setState({ pv: this.num(e, 10) }),
+      onTo: (e) => this.setState({ to: this.num(e, 2000) }),
+      onTurns: (e) => this.setState({ turns: this.num(e, 100) }),
+      onFaults: (e) => this.setState({ faults: this.num(e, 10) })
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -34,6 +34,11 @@ services:
       - DATABASE_USERNAME=postgres
       - DATABASE_PASSWORD=postgres
       - DATABASE_HOST=db
+      # Local stack: fights by URL against the bots running on this machine
+      - APPLICATION_LOCALMODE_ENABLED=true
+    extra_hosts:
+      # Lets the API reach a bot started on the host (http://host.docker.internal:<port>), Linux included
+      - "host.docker.internal:host-gateway"
   
   front:
     image: ghcr.io/axo-clash/application/frontend:1.0.0

@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>AXO-CLASH — Profil bot</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&amp;family=Barlow:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0A0C11}
+a{color:#C8F031;text-decoration:none}a:hover{color:#E4FF8A}
+.ax{font-family:'Barlow',system-ui,sans-serif;color:#E6EAF2;background-color:#0A0C11;background-image:linear-gradient(rgba(130,150,190,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(130,150,190,.05) 1px,transparent 1px);background-size:48px 48px}
+.d{font-family:'Chakra Petch',system-ui,sans-serif}
+.m{font-family:'JetBrains Mono',ui-monospace,monospace}
+.cut{clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px)}
+.cut-s{clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:44px;padding:0 22px;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:14px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border:0}
+.btn-p{background:#C8F031;color:#0A0C11}.btn-p:hover{background:#DDFF5C;color:#0A0C11}
+.btn-g{background:#161B26;color:#E6EAF2;box-shadow:inset 0 0 0 1px #343C50}.btn-g:hover{background:#202736;color:#fff}
+.nl{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#9AA3B5}
+.nl:hover{color:#E6EAF2}.nl.on{color:#E6EAF2;box-shadow:inset 0 -2px 0 #C8F031}
+.stripes{background:repeating-linear-gradient(-45deg,#C8F031 0 6px,transparent 6px 14px)}
+.fld{min-height:46px;width:100%;box-sizing:border-box;padding:0 14px;background:#0A0C11;border:1px solid #2A3142;color:#E6EAF2;font:inherit;font-size:15px}
+.fld:focus{outline:2px solid #C8F031;outline-offset:-1px}
+.lbl{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;color:#A9B1C2;text-transform:uppercase}
+.row:hover{background:#151A25}
+</style>
+</helmet>
+<div class="ax" style="width: 100%">
+
+<header style="border-bottom: 1px solid #1E2431; background: rgba(10,12,17,.92)">
+<nav aria-label="Navigation principale" style="max-width: 1280px; margin: 0 auto; padding: 12px 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; color: #E6EAF2">
+<span class="cut-s d" style="width: 36px; height: 36px; background: #C8F031; color: #0A0C11; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px">AX</span>
+<span class="d" style="font-weight: 700; font-size: 20px; letter-spacing: .12em">AXO<span style="color: #C8F031">/</span>CLASH</span>
+</a>
+<div style="display: flex; flex-wrap: wrap; gap: 2px; flex: 1 1 auto">
+<a class="nl" href="Main.dc.html">Arène</a>
+<a class="nl" href="Combat.dc.html">Combats</a>
+<a class="nl" href="Tournoi.dc.html">Tournois</a>
+<a class="nl" href="Classement.dc.html">Classement</a>
+<a class="nl on" href="Bot.dc.html" aria-current="page">Bots</a>
+<a class="nl" href="Docs.dc.html">Docs</a>
+</div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
+<a class="btn btn-g cut-s" href="#">@nathan</a>
+<a class="btn btn-p cut-s" href="Combat.dc.html">Lancer un combat</a>
+</div>
+</nav>
+</header>
+
+<section style="border-bottom: 1px solid #1E2431; background: #0D1016">
+<div style="max-width: 1280px; margin: 0 auto; padding: 48px 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 32px">
+<div class="glow" style="width: 112px; height: 112px; flex: none; display: flex; align-items: center; justify-content: center">
+<span class="d" style="width: 80px; height: 80px; background: #2E8BFF; color: #06101F; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 34px; transform: rotate(45deg); border-radius: 4px; box-shadow: 0 0 40px rgba(46,139,255,.55)"><span style="transform: rotate(-45deg)">F</span></span>
+</div>
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<div class="m" style="display: flex; flex-wrap: wrap; gap: 8px; font-size: 11px; letter-spacing: .14em">
+<span class="cut-s" style="padding: 5px 10px; background: #1F3A14; color: #9BEA6A">● PUBLIÉ</span>
+<span class="cut-s" style="padding: 5px 10px; background: #161B26; color: #A9B1C2; box-shadow: inset 0 0 0 1px #2A3142">JAVA</span>
+<span class="cut-s" style="padding: 5px 10px; background: #161B26; color: #A9B1C2; box-shadow: inset 0 0 0 1px #2A3142">V1.4.2</span>
+</div>
+<h1 class="d" style="margin: 0; font-size: clamp(48px, 6vw, 80px); line-height: .9; font-weight: 700">FERRAILLE</h1>
+<p style="margin: 0; color: #A9B1C2; font-size: 16px; max-width: 560px">par <a href="#">@nathan</a> · Garde ses distances et tire en anticipant les déplacements adverses.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-end">
+<div style="display: flex; gap: 28px; align-items: baseline">
+<div style="display: flex; flex-direction: column; align-items: flex-end"><span class="m" style="font-size: 12px; letter-spacing: .14em; color: #8A93A6">RANG</span><span class="d" style="font-size: 44px; font-weight: 700; line-height: 1; color: #C8F031">#03</span></div>
+<div style="display: flex; flex-direction: column; align-items: flex-end"><span class="m" style="font-size: 12px; letter-spacing: .14em; color: #8A93A6">ELO</span><span class="d" style="font-size: 44px; font-weight: 700; line-height: 1">1 755</span></div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<a class="btn btn-g cut-s" href="#">Modifier</a>
+<a class="btn btn-p cut-s" href="Combat.dc.html">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2"></path></svg>
+Défier</a>
+</div>
+</div>
+</div>
+</section>
+
+<main style="max-width: 1280px; margin: 0 auto; padding: 40px 32px 88px; display: flex; flex-direction: column; gap: 32px">
+<dl style="margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 1px; background: #232A38; border: 1px solid #232A38">
+<div style="background: #10131B; padding: 22px 24px; display: flex; flex-direction: column-reverse; gap: 6px"><dt class="m" style="font-size: 12px; letter-spacing: .14em; color: #8A93A6">COMBATS</dt><dd class="d" style="margin: 0; font-size: 36px; font-weight: 700; line-height: 1">67</dd></div>
+<div style="background: #10131B; padding: 22px 24px; display: flex; flex-direction: column-reverse; gap: 6px"><dt class="m" style="font-size: 12px; letter-spacing: .14em; color: #8A93A6">VICTOIRES</dt><dd class="d" style="margin: 0; font-size: 36px; font-weight: 700; line-height: 1; color: #9BEA6A">70%</dd></div>
+<div style="background: #10131B; padding: 22px 24px; display: flex; flex-direction: column-reverse; gap: 6px"><dt class="m" style="font-size: 12px; letter-spacing: .14em; color: #8A93A6">TEMPS DE RÉPONSE MOYEN</dt><dd class="d" style="margin: 0; font-size: 36px; font-weight: 700; line-height: 1">14<span style="font-size: 18px; color: #8A93A6"> ms</span></dd></div>
+<div style="background: #10131B; padding: 22px 24px; display: flex; flex-direction: column-reverse; gap: 6px"><dt class="m" style="font-size: 12px; letter-spacing: .14em; color: #8A93A6">ACTIONS INTERDITES / COMBAT</dt><dd class="d" style="margin: 0; font-size: 36px; font-weight: 700; line-height: 1; color: #FF8A95">0,8</dd></div>
+</dl>
+
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+<div style="flex: 2 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<section style="background: #10131B; border: 1px solid #232A38">
+<div style="display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid #232A38">
+<h2 class="d" style="margin: 0; font-size: 18px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase">Derniers combats</h2>
+<a href="#" class="d" style="font-weight: 700; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; min-height: 44px; display: inline-flex; align-items: center">Historique →</a>
+</div>
+<ol style="margin: 0; padding: 0; list-style: none">
+<sc-for list="{{games}}" as="g" hint-placeholder-count="6">
+<li class="row" style="border-bottom: 1px solid #1A1F2B">
+<a href="Combat.dc.html" style="display: grid; grid-template-columns: 44px minmax(0,1fr) auto auto; align-items: center; gap: 16px; padding: 12px 20px; color: #E6EAF2">
+<span class="d cut-s" style="height: 36px; display: flex; align-items: center; justify-content: center; font-weight: 700; background: {{g.bg}}; color: {{g.fg}}">{{g.r}}</span>
+<span style="display: flex; flex-direction: column; min-width: 0"><span class="d" style="font-weight: 700; font-size: 16px">vs {{g.opp}}</span><span style="font-size: 13px; color: #8A93A6">{{g.ctx}}</span></span>
+<span class="m" style="font-size: 13px; color: #A9B1C2">{{g.hp}}</span>
+<span class="m" style="font-size: 12px; color: #6B7488; width: 64px; text-align: right">{{g.when}}</span>
+</a>
+</li>
+</sc-for>
+</ol>
+</section>
+
+<section style="background: #10131B; border: 1px solid #232A38">
+<h2 class="d" style="margin: 0; padding: 16px 20px; font-size: 18px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; border-bottom: 1px solid #232A38">Versions</h2>
+<ol style="margin: 0; padding: 20px; list-style: none; display: flex; flex-direction: column; gap: 18px">
+<li style="display: grid; grid-template-columns: 96px minmax(0,1fr); gap: 16px"><span class="m" style="font-weight: 700; color: #C8F031">v1.4.2</span><span style="display: flex; flex-direction: column; gap: 4px"><span style="color: #E6EAF2">Esquive les projectiles en diagonale avant de riposter.</span><span class="m" style="font-size: 12px; color: #6B7488">ACTIVE · [DATE]</span></span></li>
+<li style="display: grid; grid-template-columns: 96px minmax(0,1fr); gap: 16px"><span class="m" style="font-weight: 700; color: #A9B1C2">v1.4.0</span><span style="display: flex; flex-direction: column; gap: 4px"><span style="color: #A9B1C2">Nouvelle heuristique de tir anticipé.</span><span class="m" style="font-size: 12px; color: #6B7488">[DATE]</span></span></li>
+<li style="display: grid; grid-template-columns: 96px minmax(0,1fr); gap: 16px"><span class="m" style="font-weight: 700; color: #A9B1C2">v1.3.1</span><span style="display: flex; flex-direction: column; gap: 4px"><span style="color: #A9B1C2">Corrige des sorties de grille comptées comme actions interdites.</span><span class="m" style="font-size: 12px; color: #6B7488">[DATE]</span></span></li>
+</ol>
+</section>
+</div>
+
+<section aria-labelledby="pub-title" style="flex: 1 1 360px; min-width: 0; background: #10131B; border: 1px solid #232A38; display: flex; flex-direction: column">
+<div class="stripes" style="height: 8px"></div>
+<form style="padding: 24px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h2 id="pub-title" class="d" style="margin: 0; font-size: 22px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase">Publier une version</h2>
+<p style="margin: 0; color: #A9B1C2; font-size: 14px; line-height: 1.5">Ton bot doit répondre à l'URL indiquée. Les combats classés utilisent toujours la version active.</p>
+</div>
+<label style="display: flex; flex-direction: column; gap: 8px"><span class="lbl">Version</span><input class="fld m" type="text" value="1.5.0"></label>
+<label style="display: flex; flex-direction: column; gap: 8px"><span class="lbl">URL du bot</span><input class="fld m" type="url" placeholder="http://host.docker.internal:&lt;PORT&gt;" value="http://host.docker.internal:8081"></label>
+<div class="m" role="status" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #13210E; color: #9BEA6A; font-size: 13px">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>
+Bot joignable · FERRAILLE v1.5.0 · 12 ms
+</div>
+<label style="display: flex; flex-direction: column; gap: 8px"><span class="lbl">Notes de version</span><textarea class="fld" rows="3" style="padding: 12px 14px; resize: vertical; min-height: 92px" placeholder="Qu'est-ce qui change ?"></textarea></label>
+<fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 10px">
+<legend class="lbl" style="padding: 0; margin-bottom: 10px">Visibilité</legend>
+<label style="display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; background: #141A0A; box-shadow: inset 0 0 0 1px #C8F031; cursor: pointer"><input type="radio" name="vis" checked="" style="accent-color: #C8F031; width: 18px; height: 18px; margin: 2px 0 0"><span style="display: flex; flex-direction: column; gap: 2px"><span class="d" style="font-weight: 700">Public · classé</span><span style="font-size: 13px; color: #A9B1C2">Visible par tous, défiable, compte au classement et peut s'inscrire aux tournois.</span></span></label>
+<label style="display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; background: #0A0C11; box-shadow: inset 0 0 0 1px #2A3142; cursor: pointer"><input type="radio" name="vis" style="accent-color: #C8F031; width: 18px; height: 18px; margin: 2px 0 0"><span style="display: flex; flex-direction: column; gap: 2px"><span class="d" style="font-weight: 700">Privé · entraînement</span><span style="font-size: 13px; color: #A9B1C2">Uniquement pour tes combats d'essai.</span></span></label>
+</fieldset>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<button type="button" class="btn btn-g cut-s" style="flex: 1 1 auto">Tester la connexion</button>
+<button type="submit" class="btn btn-p cut-s" style="flex: 1 1 auto">Publier v1.5.0</button>
+</div>
+</form>
+</section>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1720}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var data = [
+      ['V', 'KRAKEN', 'Tournoi #01 · Ronde 3', '6 – 0 PV', '2 h'],
+      ['V', 'BULLDOZER', 'Combat classé · 74 tours', '3 – 0 PV', '5 h'],
+      ['D', 'NYX-7', 'Combat classé · 100 tours', '2 – 5 PV', 'hier'],
+      ['V', 'ECHO', 'Combat classé · forfait (10 fautes)', '8 – 6 PV', 'hier'],
+      ['D', 'KESTREL', 'Combat classé · 61 tours', '0 – 4 PV', '2 j'],
+      ['V', 'GLITCH', 'Combat classé · 88 tours', '1 – 0 PV', '3 j']
+    ];
+    return {
+      games: data.map(function (d) {
+        var w = d[0] === 'V';
+        return { r: d[0], opp: d[1], ctx: d[2], hp: d[3], when: d[4], bg: w ? '#1F3A14' : '#3A141A', fg: w ? '#9BEA6A' : '#FF8A95' };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>
