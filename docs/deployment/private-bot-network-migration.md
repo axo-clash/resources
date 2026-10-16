@@ -20,7 +20,8 @@ Un nom ambigu, un autre projet/VPC, un réseau sans DHCP ou propagant les routes
 par défaut sont refusés. Aucun recyclage vers un autre bot n'est automatique.
 Les erreurs temporaires de provisioning sont reprises par la publication.
 
-Le manager reçoit `VPCFullAccess` sur le projet pour ce provisioning ; sa clé reste
+Le manager reçoit `VPCFullAccess` et `PrivateNetworksFullAccess` sur le projet
+pour ce provisioning ; sa clé reste
 dans l'API. Les ACL autorisent API↔réseaux puis refusent tout autre trafic privé
 entrant/sortant des réseaux des bots. Elles conservent les règles existantes et
 la politique par défaut. Elles sont stateless : tous les ports avec l'API sont
