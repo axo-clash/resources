@@ -27,10 +27,10 @@ entrant/sortant des réseaux des bots. Elles conservent les règles existantes e
 la politique par défaut. Elles sont stateless : tous les ports avec l'API sont
 autorisés dans les deux sens, y compris des appels initiés par un bot.
 
-Après initialisation, OpenTofu ignore les changements des règles ACL et de leur
-politique (`ignore_changes`). Le backend gère les mises à jour dynamiques pour
-éviter qu'un apply ultérieur supprime les règles des bots. Ne pas modifier ces
-mêmes règles simultanément depuis un autre gestionnaire.
+OpenTofu relit les ACL existantes et conserve les règles dynamiques des bots lors
+de ses mises à jour, y compris lors de l’ajout du réseau PostgreSQL. Mettre les
+publications en pause pendant plan/apply pour éviter une mise à jour concurrente.
+Le réseau PostgreSQL est distinct du réseau API et refuse les autres réseaux.
 
 ## Invocation sans secret
 
